@@ -11,7 +11,11 @@ export const Select = ({ value, onChange, options, placeholder = 'Select...' }: 
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full cursor-pointer appearance-none rounded-md border border-gray-600 bg-gray-800 py-2 pl-3 pr-10 text-sm text-white focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+        className="w-full cursor-pointer appearance-none truncate rounded-md border border-gray-600 bg-gray-800 py-2 pl-3 pr-10 text-sm text-white focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+        title={
+          // show full text on hover via native title attribute
+          value || ''
+        }
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (

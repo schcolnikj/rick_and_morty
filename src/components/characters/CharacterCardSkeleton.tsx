@@ -8,7 +8,7 @@ export const CharacterCardSkeleton = ({ count = 1 }: CharacterCardSkeletonProps)
       {[...Array(count)].map((_, index) => (
         <div
           key={index}
-          className="animate-pulse rounded-lg border-2 border-gray-700 bg-gray-800/50 p-3"
+          className="w-80 flex-shrink-0 animate-pulse snap-center rounded-lg border-2 border-gray-700 bg-gray-800/50 p-3 sm:w-96 md:w-auto"
         >
           <div className="flex gap-3">
             {/* Image skeleton */}

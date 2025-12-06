@@ -46,10 +46,10 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      <main className="flex h-screen flex-col overflow-hidden bg-background-dark">
+      <main className="flex h-screen flex-col overflow-auto bg-background-dark md:overflow-hidden">
         <div className="flex min-h-0 flex-1 flex-col gap-4 p-6">
           <section className="shrink-0">
-            <div className="flex w-full gap-2">
+            <div className="flex w-full flex-col gap-2 md:flex-row">
               <CharacterList
                 listType="A"
                 selectedId={characterA}

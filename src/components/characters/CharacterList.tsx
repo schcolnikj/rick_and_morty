@@ -78,7 +78,15 @@ export const CharacterList = ({ listType, selectedId, onSelectCharacter }: Chara
     }
     setApiPage(1);
     pagination.setLocalPage(1);
-  }, [searchQuery, pagination, debouncedSearchQuery]);
+  }, [debouncedSearchQuery]);
+
+  // Reset scroll position when pagination changes in mobile devices
+  useEffect(() => {
+    const container = document.getElementById(`character-list-${listType}`);
+    if (container) {
+      container.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  }, [pagination.localPage, listType]);
 
   // Reset to first page when other filters change
   const handleFilterChange = () => {
@@ -153,24 +161,42 @@ export const CharacterList = ({ listType, selectedId, onSelectCharacter }: Chara
         </div>
       </div>
 
-      <div className="scrollbar-custom flex flex-1 flex-col gap-2 overflow-y-auto p-3">
-        {isLoading && <CharacterCardSkeleton count={CHARACTERS_PER_PAGE} />}
+      <div
+        className="scrollbar-custom flex min-h-0 flex-1 snap-x snap-mandatory gap-3 overflow-x-auto p-3 md:flex-col md:gap-2 md:overflow-y-auto"
+        id={`character-list-${listType}`}
+      >
+        {isLoading && (
+          <>
+            {[...Array(CHARACTERS_PER_PAGE)].map((_, idx) => (
+              <div key={idx} className="w-full flex-shrink-0 snap-center md:w-auto">
+                <CharacterCardSkeleton />
+              </div>
+            ))}
+          </>
+        )}
 
-        {!isLoading && isError && <ErrorState title="Failed to load characters" />}
+        {!isLoading && isError && (
+          <div className="w-full">
+            <ErrorState title="Failed to load characters" />
+          </div>
+        )}
 
         {!isLoading && !isError && paginatedCharacters.length === 0 && (
-          <EmptyState message="No results found matching this filter" />
+          <div className="w-full">
+            <EmptyState message="No results found matching this filter" />
+          </div>
         )}
 
         {!isLoading &&
           !isError &&
           paginatedCharacters.map((character) => (
-            <CharacterCard
-              key={character.id}
-              character={character}
-              isSelected={selectedId === character.id}
-              onSelect={onSelectCharacter}
-            />
+            <div key={character.id} className="w-full flex-shrink-0 snap-center md:w-auto">
+              <CharacterCard
+                character={character}
+                isSelected={selectedId === character.id}
+                onSelect={onSelectCharacter}
+              />
+            </div>
           ))}
       </div>
     </div>

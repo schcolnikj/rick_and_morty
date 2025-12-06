@@ -5,7 +5,7 @@ import { ResultsAreaProps } from '@/types';
 
 export const ResultsArea = ({ analysis, isLoading }: ResultsAreaProps) => {
   return (
-    <div className="flex h-full min-h-0 gap-4">
+    <div className="flex h-full min-h-0 flex-col gap-4 md:flex-row">
       <div className="group/col min-w-0 flex-1 transition-all duration-300 md:hover:flex-[2]">
         <EpisodeList
           title="Character A Only"

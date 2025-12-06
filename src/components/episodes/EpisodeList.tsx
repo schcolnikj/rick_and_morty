@@ -34,13 +34,17 @@ export const EpisodeList = ({
         </div>
       </div>
 
-      <div className="scrollbar-custom flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto p-3">
+      <div className="scrollbar-custom flex min-h-0 flex-1 snap-x snap-mandatory gap-3 overflow-x-auto p-3 md:flex-col md:gap-2 md:overflow-y-auto">
         {isLoading ? (
           <EpisodeListSkeleton />
         ) : episodes.length === 0 ? (
           <EmptyState message={emptyMessage} />
         ) : (
-          episodes.map((episode) => <EpisodeCard key={episode.id} episode={episode} />)
+          episodes.map((episode) => (
+            <div key={episode.id} className="w-full flex-shrink-0 snap-center md:w-auto">
+              <EpisodeCard episode={episode} />
+            </div>
+          ))
         )}
       </div>
     </div>
